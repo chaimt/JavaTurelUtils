@@ -1,0 +1,55 @@
+@isTest
+public class SMSUtilsTest {
+
+    static void setupSettings(){
+        Global_Settings__c  settings = new Global_Settings__c();
+        settings.Name = 'Global';
+        settings.Twilio_Israel_Number__c = '123';
+        settings.Twilio_Number__c = '456,789,555';
+        settings.Twilio_Account__c = 'abc';
+        settings.Twilio_Token__c = 'ddd';
+        settings.PM_Notifications__c = 'Active';
+        settings.PN_T_A_EMAIL__c = 'A';
+        settings.PN_T_B_EMAIL__c = 'B';
+        settings.PN_T_C_EMAIL__c = 'C';
+        settings.PN_T_D_EMAIL__c = 'D';
+        settings.EMAIL_Log_Template__c = 'INTERNAL LOG';
+        settings.PN_Error_Email__c = 'test@angelsense.com';
+        settings.Suffix_Full_Contract__c = 'Full Contract Fee';
+        settings.Suffix_No_Contract__c = 'No Contract';
+        settings.Suffix_Partial_Contract__c = 'Contract - 149 Fee';
+        settings.PN_T_A_SMS__c = 'SMS A';
+        settings.PN_T_B_SMS__c = 'SMS B';
+        settings.PN_T_C_SMS__c = 'SMS C';
+        settings.PN_T_D_SMS_NO_CONTRACT__c = 'NO SMS D';
+        settings.FP_T_D_SMS_Full_Contract__c = 'FULL SMS D';
+        settings.FP_T_D_SMS_Partial_Contract__c = 'PAR SMS D';
+        settings.FP_T_D_SMS_Finall__c = 'FIN SMS D';
+
+
+
+        insert settings;
+    }
+
+    static testMethod void testgetIsraelNumber(){
+        setupSettings();
+
+        SMSUtils sms = new SMSUtils();
+        String tonumber = sms.getNumber('+972-5506148');
+        System.assertEquals('123', tonumber);
+
+    }
+
+    static testMethod void testgetNonIsraelNumber(){
+        setupSettings();
+
+        SMSUtils sms = new SMSUtils();
+
+        String tonumber = sms.getNumber('+974-5506148');
+        System.assertEquals('789', tonumber);
+
+
+    }
+
+
+}

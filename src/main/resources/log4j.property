@@ -1,0 +1,2 @@
+log4j.org.apache=INFO
+org.apache.http.headers=INFO

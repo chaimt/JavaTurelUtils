@@ -1,0 +1,94 @@
+public class SMSUtils {
+    private Global_Settings__c settings;
+
+    private Global_Settings__c  getGlobalSettings(){
+        return [SELECT Id, Twilio_Account__c, Twilio_Token__c, Twilio_Israel_Number__c, Twilio_Number__c
+                FROM Global_Settings__c ];
+    }
+
+    public SMSUtils(){
+        settings = getGlobalSettings();
+    }
+
+
+    public String getNumber(String toNumber){
+        System.debug('toNumber: ' + toNumber);
+        if (toNumber.startsWith('+972')) {
+            return settings.Twilio_Israel_Number__c;
+        }
+        else{
+            String[] numbers = settings.Twilio_Number__c.split(',');
+            System.debug('numbers: ' + numbers.size());
+            Integer hashCode = Math.abs(toNumber.hashCode());
+            System.debug('hashCode: ' + hashCode);
+            Integer indx = Math.mod(hashCode,numbers.size());
+            System.debug('indx: ' + indx);
+            return numbers[indx];
+            return '';
+        }
+    }
+
+
+    @future(callout=true)
+    public static void sendAysncSMS(String toNumber, String message, String taskId){
+        SMSUtils smsUtils = new SMSUtils();
+        String fromNumber = smsUtils.getNumber(toNumber);
+        sendSMS(smsUtils.settings.Twilio_Account__c,smsUtils.settings.Twilio_Token__c,fromNumber,toNumber,message,taskId);
+    }
+
+    public static void sendSMSNoError(String toNumber, String message, String taskId){
+        try{
+        	sendSMS(toNumber,message,taskId);
+        }
+        catch (Exception e){
+
+        }
+    }
+    public static void sendSMS(String toNumber, String message, String taskId){
+        SMSUtils smsUtils = new SMSUtils();
+        String fromNumber = smsUtils.getNumber(toNumber);
+        sendSMS(smsUtils.settings.Twilio_Account__c,smsUtils.settings.Twilio_Token__c,fromNumber,toNumber,message,taskId);
+    }
+
+
+    private static void writeActivity(String taskId, String toNumber, String fromNumber, String message){
+        if (taskId!=null){
+            Task[] tasks = [select Id,Subject from Task where Id=:taskId];
+            Task myTask = tasks!=null?tasks[0]:null;
+
+            myTask.Subject = String.format('[Error {0}] - {1}',new List<String> {message, myTask.Subject});
+            myTask.Status = 'deferred';
+            update myTask;
+        }
+
+    }
+
+    private static void sendSMS(String account, String token, String fromNumber, String toNumber, String message, String taskId){
+        Task[] tasks = [select Id,Subject, Description from Task where Id=:taskId];
+        Task myTask = tasks!=null?tasks[0]:null;
+        myTask.Description = String.format('{0} [via {1}]',new List<String> {myTask.Description, fromNumber});
+        System.debug('descp: ' + myTask.Description);
+
+        try{
+            System.debug('send SMS From: ' + fromNumber);
+            System.debug('send SMS Mobile: ' + toNumber);
+            System.debug('send SMS Message: ' + message);
+            Map<String,String> params = new Map<String,String> {
+                'To'   => toNumber,
+                'From' => fromNumber,
+                'Body' => message
+            };
+            TwilioRestClient client = new TwilioRestClient(account, token);
+            TwilioSms smsMessage  = client.getAccount().getSMSMessages().create(params);
+            System.debug('TwilioSms: B=' + smsMessage.getBody());
+            System.debug('TwilioSms: S=' + smsMessage.getStatus());
+        }
+        catch(Exception e){
+            myTask.Subject = String.format('[Error {0}] - {1}',new List<String> {e.getMessage(), myTask.Subject});
+            myTask.Status = 'deferred';
+            //writeActivity(taskId,toNumber,fromNumber,e.getMessage());
+            System.debug('TwilioSms: Exception=' + e.getMessage());
+        }
+        update myTask;
+    }
+}
