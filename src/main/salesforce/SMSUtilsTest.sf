@@ -14,7 +14,7 @@ public class SMSUtilsTest {
         settings.PN_T_C_EMAIL__c = 'C';
         settings.PN_T_D_EMAIL__c = 'D';
         settings.EMAIL_Log_Template__c = 'INTERNAL LOG';
-        settings.PN_Error_Email__c = 'test@angelsense.com';
+        settings.PN_Error_Email__c = 'test@turel.com';
         settings.Suffix_Full_Contract__c = 'Full Contract Fee';
         settings.Suffix_No_Contract__c = 'No Contract';
         settings.Suffix_Partial_Contract__c = 'Contract - 149 Fee';

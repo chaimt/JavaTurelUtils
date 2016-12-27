@@ -1,4 +1,4 @@
-package com.angelsense.common.util;
+package com.turel.utils;
 
 import org.apache.log4j.MDC;
 
