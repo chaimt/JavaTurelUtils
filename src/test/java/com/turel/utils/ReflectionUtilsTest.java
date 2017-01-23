@@ -1,5 +1,7 @@
 package com.turel.utils;
 
+import com.turel.utils.classExamples.Order;
+import com.turel.utils.classExamples.OrderOther;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -41,6 +43,19 @@ public class ReflectionUtilsTest {
         Assert.assertEquals(a.getStatus(),b.getStatus());
         Assert.assertEquals(a.getActual_Payment_Amount__c(),b.getActual_Payment_Amount__c());
         Assert.assertEquals(a.getDeferred_Payment_Date__c(),b.getDeferred_Payment_Date__c());
+    }
+
+    @Test
+    public void copyFieldsIntToShort(){
+        Order a = new Order();
+        a.setIntField((int)4);
+        OrderOther b = new OrderOther();
+        ReflectionUtils.copyFields(a,b);
+        Assert.assertEquals((int)a.getIntField(),(int)b.getIntField());
+
+        b.setIntField((short)6);
+        ReflectionUtils.copyFields(b,a);
+        Assert.assertEquals((int)a.getIntField(),(int)b.getIntField());
     }
 
 }

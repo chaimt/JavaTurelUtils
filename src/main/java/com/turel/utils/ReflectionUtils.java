@@ -1,13 +1,14 @@
 package com.turel.utils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.util.*;
-
+import com.google.gson.*;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 
-import com.google.gson.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by chaimturkel on 8/29/16.
@@ -43,7 +44,7 @@ public class ReflectionUtils {
     }
 
     public static <T> T createObject(JSONObject obj, Class<T> cls) throws IllegalAccessException, InstantiationException, NoSuchFieldException {
-        if (obj==null){
+        if (obj == null) {
             throw new RuntimeException("Object to map is null, for class " + cls.toString());
         }
 
@@ -51,13 +52,13 @@ public class ReflectionUtils {
         return gson.fromJson(obj.toString(), cls);
     }
 
-    public static boolean isStatic(Field field){
+    public static boolean isStatic(Field field) {
         return java.lang.reflect.Modifier.isStatic(field.getModifiers());
     }
 
     public static <T> List<String> getFields(Class<T> cls) {
         List<String> names = new ArrayList<>();
-        for (Field field :  cls.getDeclaredFields()){
+        for (Field field : cls.getDeclaredFields()) {
             if ((!field.isEnumConstant() && (!field.isSynthetic())) && (!isStatic(field))) {
                 names.add(field.getName());
             }
@@ -65,7 +66,35 @@ public class ReflectionUtils {
         return names;
     }
 
-    public static void copyFields(Object source, Object dest){
+    private static Number convertToNumber(Class<? extends Number> outputType, Number value) {
+
+        if (value == null) {
+            return null;
+        }
+        if (Byte.class.equals(outputType) || byte.class.equals(outputType)) {
+            return value.byteValue();
+        }
+        if (Short.class.equals(outputType) || short.class.equals(outputType)) {
+            return value.shortValue();
+        }
+        if (Integer.class.equals(outputType) || int.class.equals(outputType)) {
+            return value.intValue();
+        }
+        if (Long.class.equals(outputType) || long.class.equals(outputType)) {
+            return value.longValue();
+        }
+        if (Float.class.equals(outputType) || float.class.equals(outputType)) {
+            return value.floatValue();
+        }
+        if (Double.class.equals(outputType) || double.class.equals(outputType)) {
+            return value.doubleValue();
+        }
+
+        throw new RuntimeException("TypeMismatchException");
+
+    }
+
+    public static void copyFields(Object source, Object dest) {
         getFields(source.getClass())
                 .forEach(field -> {
                     try {
@@ -75,7 +104,19 @@ public class ReflectionUtils {
 
                         final Field destField = dest.getClass().getDeclaredField(field);
                         destField.setAccessible(true);
-                        destField.set(dest,value);
+
+                        if (srcField.getType().equals(destField.getType())) {
+                            destField.set(dest, value);
+                        } else {
+                            if (value instanceof Number) {
+                                final Number number = convertToNumber((Class<? extends Number>) destField.getType(), (Number) value);
+                                destField.set(dest, number);
+                            } else {
+                                throw new RuntimeException(String.format("unsupported type copy %s->%s", destField.getType().toString(), srcField.getType().toString()));
+                            }
+                        }
+
+
                     } catch (NoSuchFieldException e) {
                     } catch (IllegalAccessException e) {
                     }

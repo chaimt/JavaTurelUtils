@@ -1,4 +1,4 @@
-package com.turel.utils;
+package com.turel.utils.classExamples;
 
 import java.util.Date;
 
@@ -7,6 +7,8 @@ import java.util.Date;
  * @since Jul 12, 2015
  */
 public class Order {
+
+	private Integer intField;
 
 	public static String FIELD_Id ="Id";
 	private String Id;//id in salesforce
@@ -398,7 +400,13 @@ public class Order {
 	public void setActual_Payment_Date__c(Date actual_Payment_Date__c) {
 		Actual_Payment_Date__c = actual_Payment_Date__c;
 	}
-	
-	
 
+
+	public Integer getIntField() {
+		return intField;
+	}
+
+	public void setIntField(Integer intField) {
+		this.intField = intField;
+	}
 }
