@@ -108,11 +108,13 @@ public class ReflectionUtils {
                         if (srcField.getType().equals(destField.getType())) {
                             destField.set(dest, value);
                         } else {
-                            if (value instanceof Number) {
-                                final Number number = convertToNumber((Class<? extends Number>) destField.getType(), (Number) value);
-                                destField.set(dest, number);
-                            } else {
-                                throw new RuntimeException(String.format("unsupported type copy %s->%s", destField.getType().toString(), srcField.getType().toString()));
+                            if (value!=null) {
+                                if (value instanceof Number) {
+                                    final Number number = convertToNumber((Class<? extends Number>) destField.getType(), (Number) value);
+                                    destField.set(dest, number);
+                                } else {
+                                    throw new RuntimeException(String.format("unsupported type copy %s->%s", destField.getType().toString(), srcField.getType().toString()));
+                                }
                             }
                         }
 
