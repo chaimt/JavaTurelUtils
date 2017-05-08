@@ -59,4 +59,20 @@ public class ReflectionUtilsTest {
         Assert.assertEquals((int)a.getIntField(),(int)b.getIntField());
     }
 
+    @Test
+    public void compareTest(){
+        Order a = new Order();
+        a.setIntField((int)4);
+
+        Order b = new Order();
+        b.setIntField((int)4);
+
+        Assert.assertTrue(ReflectionUtils.compare(a, b));
+
+        b.setAccountId("test");
+
+        Assert.assertFalse(ReflectionUtils.compare(a, b));
+
+    }
+
 }

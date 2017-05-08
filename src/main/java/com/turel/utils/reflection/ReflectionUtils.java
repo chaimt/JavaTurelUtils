@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -175,4 +176,22 @@ public class ReflectionUtils {
         return null;
     }
 
+
+    public static <T> boolean compare(T first, T secound){
+        Field[] allDeclaredFields = getAllDeclaredFields(first.getClass());
+        return Arrays.stream(allDeclaredFields).map(field -> {
+            try {
+                field.setAccessible(true);
+                Object a = field.get(first);
+                Object b = field.get(secound);
+                if (a == null && b==null)
+                    return true;
+                if ((a != null && b==null) || (a == null && b!=null))
+                    return false;
+                return a.equals(b);
+            } catch (IllegalAccessException e) {
+                return false;
+            }
+        }).filter(aBoolean -> aBoolean == false).count()==0;
+    }
 }
