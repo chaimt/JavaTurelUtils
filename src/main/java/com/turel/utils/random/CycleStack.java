@@ -8,53 +8,53 @@ import java.util.Stack;
  *
  */
 public class CycleStack<T> {
-	private Stack<Stack<T>> stacks = new Stack<>();
-	
-	public CycleStack(){
-		stacks.push(new Stack<T>());
-		
-	}
+    private Stack<Stack<T>> stacks = new Stack<>();
 
-	private Stack<T> top(){
-		return stacks.peek();
-	}
-	
-	public Stack<T> getStack() {
-		return top();
-	}
+    public CycleStack(){
+        stacks.push(new Stack<T>());
 
-	public int getCycleDepth() {
-		return stacks.size();
-	}
+    }
 
-	public void push(T type) {
-		top().push(type);
-	}
+    private Stack<T> top(){
+        return stacks.peek();
+    }
 
-	public void pop() {
-		top().pop();
-		if ((top().size() == 0) && (stacks.size()>1)) {
-			stacks.pop();
-		}
-	}
+    public Stack<T> getStack() {
+        return top();
+    }
 
-	public T peek() {
-		return top().peek();
-	}
+    public int getCycleDepth() {
+        return stacks.size();
+    }
 
-	public int indexOf(T type) {
-		return top().indexOf(type);
-	}
+    public void push(T type) {
+        top().push(type);
+    }
 
-	public int size() {
-		return top().size();
-	}
+    public void pop() {
+        top().pop();
+        if ((top().size() == 0) && (stacks.size()>1)) {
+            stacks.pop();
+        }
+    }
 
-	public Stack<T> newStack() {
-		Stack<T> stack = new Stack<T>();
-		stacks.push(stack);
-		return stack;
-	}
+    public T peek() {
+        return top().peek();
+    }
 
-	
+    public int indexOf(T type) {
+        return top().indexOf(type);
+    }
+
+    public int size() {
+        return top().size();
+    }
+
+    public Stack<T> newStack() {
+        Stack<T> stack = new Stack<T>();
+        stacks.push(stack);
+        return stack;
+    }
+
+
 }
