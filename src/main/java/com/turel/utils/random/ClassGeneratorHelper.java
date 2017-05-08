@@ -23,7 +23,7 @@ public class ClassGeneratorHelper {
     private Stack<CycleStack<Class<?>>> typesCreatedStack = new Stack<>();
     private int listCountRepition = 1;
     private int cycleCountRepition = 1;
-    private BaseRandomField baseRandomField;
+    private _BaseRandomField baseRandomField;
     private boolean recursive = true;
     private ParameterizedType keyParameterizedType;
 
@@ -31,14 +31,14 @@ public class ClassGeneratorHelper {
 
     }
 
-    public ClassGeneratorHelper(int listCountRepition, int cycleCountRepition, BaseRandomField baseRandomField) {
+    public ClassGeneratorHelper(int listCountRepition, int cycleCountRepition, _BaseRandomField baseRandomField) {
         super();
         this.listCountRepition = listCountRepition;
         this.cycleCountRepition = cycleCountRepition;
         this.baseRandomField = baseRandomField;
     }
 
-    public ClassGeneratorHelper(int listCountRepition, int cycleCountRepition, BaseRandomField baseRandomField,
+    public ClassGeneratorHelper(int listCountRepition, int cycleCountRepition, _BaseRandomField baseRandomField,
                                 boolean recursive) {
         super();
         this.listCountRepition = listCountRepition;
@@ -69,11 +69,11 @@ public class ClassGeneratorHelper {
         this.recursive = recursive;
     }
 
-    public BaseRandomField getBaseRandomField() {
+    public _BaseRandomField getBaseRandomField() {
         return baseRandomField;
     }
 
-    public void registerBaseRandomField(BaseRandomField baseRandomField) {
+    public void registerBaseRandomField(_BaseRandomField baseRandomField) {
         this.baseRandomField = baseRandomField;
     }
 
