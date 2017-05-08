@@ -1,4 +1,4 @@
-package com.turel.utils;
+package com.turel.utils.reflection;
 
 import com.google.gson.*;
 import org.joda.time.DateTime;
@@ -125,4 +125,54 @@ public class ReflectionUtils {
                 });
 
     }
+
+    private static List<Field> getAllFields(List<Field> fields, Class<?> type, boolean includeStatic) {
+        for (Field field : type.getDeclaredFields()) {
+            if (!includeStatic && java.lang.reflect.Modifier.isStatic(field.getModifiers()))
+                continue;
+            fields.add(field);
+        }
+
+        if (type.getSuperclass() != null) {
+            fields = getAllFields(fields, type.getSuperclass(),includeStatic);
+        }
+        return fields;
+    }
+
+    /**
+     * get all declared fields including inherited
+     * @param type
+     * @return
+     */
+    public static Field[] getAllDeclaredFields(Class<?> type) {
+        return getAllDeclaredFields(type,false);
+    }
+
+
+    public static Field[] getAllDeclaredFields(Class<?> type, boolean includeStatic) {
+        List<Field> fields = new ArrayList<Field>();
+        getAllFields(fields, type, includeStatic);
+        return fields.toArray(new Field[fields.size()]);
+    }
+
+    public static Object newInstanceForPrimitive(Class cls){
+        if (cls==Boolean.TYPE)
+            return new Boolean(true);
+        if (cls==Byte.TYPE)
+            return new Byte((byte)0);
+        if (cls==Character.TYPE)
+            return new Character((char)0);
+        if (cls==Short.TYPE)
+            return new Short((short)0);
+        if (cls==Integer.TYPE)
+            return new Integer((int)0);
+        if (cls==Long.TYPE)
+            return new Long((long)0);
+        if (cls==Double.TYPE)
+            return new Double((double)0);
+        if (cls==Float.TYPE)
+            return new Float((float)0);
+        return null;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.turel.utils;
 
 import com.turel.utils.classExamples.Order;
 import com.turel.utils.classExamples.OrderOther;
+import com.turel.utils.reflection.ReflectionUtils;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
