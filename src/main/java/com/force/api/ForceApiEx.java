@@ -150,6 +150,27 @@ public class ForceApiEx extends ForceApi {
         } catch (UnsupportedEncodingException e) {
             throw new ResourceException(e);
         }
+    }
 
+    /**
+     * get new object that has missing attributes from base class
+     * @param sobject
+     * @return
+     */
+    public DescribeSObjectEx describeSObjectEx(String sobject) {
+        try {
+            return jsonMapper.readValue(apiRequest(new HttpRequest()
+                    .url(uriBase()+"/sobjects/"+sobject+"/describe")
+                    .method("GET")
+                    .header("Accept", "application/json")).getStream(),DescribeSObjectEx.class);
+        } catch (JsonParseException e) {
+            throw new ResourceException(e);
+        } catch (JsonMappingException e) {
+            throw new ResourceException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new ResourceException(e);
+        } catch (IOException e) {
+            throw new ResourceException(e);
+        }
     }
 }
