@@ -27,11 +27,11 @@ function getBetweenMonthsLeftInclusiveInternal(fromBQDate , toBQDate){
 }
 
 /**
-* get array of months exclude start, include end
-* @param fromBQDate
-* @param toBQDate
-* @returns {Array}
-*/
+ * get array of months exclude start, include end
+ * @param fromBQDate
+ * @param toBQDate
+ * @returns {Array}
+ */
 function getBetweenMonthsRightInclusiveInternal(fromBQDate , toBQDate){
     var months = [];
     var bqfromDate = new Date(fromBQDate);
@@ -49,11 +49,11 @@ function getBetweenMonthsRightInclusiveInternal(fromBQDate , toBQDate){
 }
 
 /**
-* get array of months include start, include end
-* @param fromBQDate
-* @param toBQDate
-* @returns {Array}
-*/
+ * get array of months include start, include end
+ * @param fromBQDate
+ * @param toBQDate
+ * @returns {Array}
+ */
 function getBetweenMonthsInclusiveInternal(fromBQDate , toBQDate){
     var months = [];
     var bqfromDate = new Date(fromBQDate);
