@@ -19,6 +19,10 @@
         <force-wsc.version>40.0.0</force-wsc.version>
         <force-partner-api.version>40.0.0</force-partner-api.version>
 
+        <beam.version>2.0.0</beam.version>
+        <google-api-services-bigquery.version>v2-rev353-1.22.0</google-api-services-bigquery.version>
+
+
 
         <!-- plugins propeties -->
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -106,7 +110,24 @@
             <version>${force-partner-api.version}</version>
         </dependency>
 
-    
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-bigquery</artifactId>
+            <version>${google-api-services-bigquery.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>guava-jdk5</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.beam</groupId>
+            <artifactId>beam-sdks-java-core</artifactId>
+            <version>${beam.version}</version>
+        </dependency>
+
     </dependencies>
 
    
