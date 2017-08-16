@@ -16,7 +16,7 @@ public class RetryTimeoutCommand<T> {
     }
 
     // Takes a function and executes it, if fails, passes the function to the retry command
-    public T run(Supplier<T> function) {
+    public T run(UncheckSupplier<T> function) {
         try {
             startTime = System.currentTimeMillis();
             return function.get();
@@ -33,7 +33,7 @@ public class RetryTimeoutCommand<T> {
         return retryCounter;
     }
 
-    private T retry(Supplier<T> function) throws RuntimeException {
+    private T retry(UncheckSupplier<T> function) throws RuntimeException {
         retryCounter++;
         LOG.debug("Command failed, will be retried form " + abortTimeout + " time.");
         boolean stop = false;

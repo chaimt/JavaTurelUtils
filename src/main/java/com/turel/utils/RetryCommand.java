@@ -20,7 +20,7 @@ public class RetryCommand<T> {
     }
 
     // Takes a function and executes it, if fails, passes the function to the retry command
-    public T run(Supplier<T> function) {
+    public T run(UncheckSupplier<T> function) {
         try {
             return function.get();
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class RetryCommand<T> {
 
     public int getRetryCounter() { return retryCounter; }
 
-    private T retry(Supplier<T> function) throws RuntimeException {
+    private T retry(UncheckSupplier<T> function) throws RuntimeException {
         LOG.debug("Command failed, will be retried " + maxRetries + " times.");
         retryCounter = 0;
         while (retryCounter < maxRetries) {
