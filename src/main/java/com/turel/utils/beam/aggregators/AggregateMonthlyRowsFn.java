@@ -1,6 +1,7 @@
-package com.turel.utils.beam;
+package com.turel.utils.beam.aggregators;
 
 import com.google.api.services.bigquery.model.TableRow;
+import com.turel.utils.beam.SalesforceBigQuery;
 import org.apache.beam.sdk.transforms.Combine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

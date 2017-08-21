@@ -1,6 +1,7 @@
-package com.turel.utils.beam;
+package com.turel.utils.beam.encoders;
 
 import com.google.api.services.bigquery.model.TableRow;
+import com.turel.utils.beam.aggregators.AggregateMonthlyRowsFn;
 import org.apache.beam.sdk.coders.CustomCoder;
 import org.apache.beam.sdk.coders.ListCoder;
 import org.apache.beam.sdk.io.gcp.bigquery.TableRowJsonCoder;
