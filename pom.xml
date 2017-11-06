@@ -19,7 +19,7 @@
         <force-wsc.version>40.0.0</force-wsc.version>
         <force-partner-api.version>40.0.0</force-partner-api.version>
 
-        <beam.version>2.0.0</beam.version>
+        <beam.version>2.1.0</beam.version>
         <google-api-services-bigquery.version>v2-rev355-1.22.0</google-api-services-bigquery.version>
 
 
