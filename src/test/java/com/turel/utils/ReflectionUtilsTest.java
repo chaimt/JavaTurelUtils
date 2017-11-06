@@ -1,5 +1,6 @@
 package com.turel.utils;
 
+import com.turel.utils.classExamples.InheritedClass;
 import com.turel.utils.classExamples.Order;
 import com.turel.utils.classExamples.OrderOther;
 import com.turel.utils.reflection.ReflectionUtils;
@@ -7,7 +8,11 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by chaimturkel on 8/29/16.
@@ -73,6 +78,16 @@ public class ReflectionUtilsTest {
 
         Assert.assertFalse(ReflectionUtils.compare(a, b));
 
+    }
+
+
+    @Test
+    public void getFieldsTest(){
+        Field[] allDeclaredFields = ReflectionUtils.getAllDeclaredFields(InheritedClass.class);
+        Assert.assertEquals(2,allDeclaredFields.length);
+        Map<String, Field> collect = Arrays.stream(allDeclaredFields).collect(Collectors.toMap(o -> o.getName(), o -> o));
+        Assert.assertNotNull(collect.get("id"));
+        Assert.assertNotNull(collect.get("last"));
     }
 
 }
