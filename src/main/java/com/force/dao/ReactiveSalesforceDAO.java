@@ -41,17 +41,14 @@ public class ReactiveSalesforceDAO {
 	public <T> Flux<T> find(String query, Class<T> type, String tableName) {
 		return Flux.create(fluxSink -> {
 			try {
-				int count = 0;
 				QueryResult<T> res = forceApi.query(query, type);
 				for (T record : res.getRecords()) {
 					fluxSink.next(record);
-					count++;
 				}
 				while (!res.isDone() && !fluxSink.isCancelled()) {
 					res = forceApi.queryMore(res.getNextRecordsUrl(), type);
 					for (T record : res.getRecords()) {
 						fluxSink.next(record);
-						count++;
 					}
 				}
 				fluxSink.complete();
