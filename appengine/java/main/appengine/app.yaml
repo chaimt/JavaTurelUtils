@@ -1,0 +1,18 @@
+#Configuration of runtime parameters
+runtime: custom
+env: flex
+service: schedual-dataflow
+
+handlers:
+- url: /.*
+  script: this field is required, but ignored
+  secure: always  # Require HTTPS
+
+manual_scaling:
+  instances: 1
+
+resources:
+  memory_gb: 2
+
+instance_class: B1
+
