@@ -12,7 +12,7 @@
     "filters": [],
     "cutoffTimestamp": 1464382800000,
     "encoding": "UTF-8",
-    "pathExpression": "/opt/behalf/cto/migration-dataflow/log/*.log",
+    "pathExpression": "/opt/company/cto/migration-dataflow/log/*.log",
     "blacklist": [],
     "sourceType": "LocalFile"
 

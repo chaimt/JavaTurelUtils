@@ -9,7 +9,7 @@ ADD sumologic_sources.json ${SUMOLOGIC_CONFDIR}/sumologic_sources.json
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # INSTALL gcp credentials
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-RUN mkdir -p /opt/behalf/cto/migration-dataflow/log
+RUN mkdir -p /opt/company/cto/migration-dataflow/log
 
 ENV DOCKER_BASEDIR /opt/docker
 ENV DOCKER_LOGDIR  ${DOCKER_BASEDIR}/log
