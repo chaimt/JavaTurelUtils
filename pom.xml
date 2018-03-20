@@ -14,6 +14,7 @@
         <metrics-core.version>4.0.0</metrics-core.version>
         <rxjava.version>1.3.4</rxjava.version>
         <joda-time.version>2.9.9</joda-time.version>
+        <spring-statemachine-core.version>1.2.8.RELEASE</spring-statemachine-core.version>
 
         <force-rest-api.version>0.0.40</force-rest-api.version>
         <force-wsc.version>42.0.0</force-wsc.version>
@@ -38,6 +39,7 @@
         <lombok.version>1.16.18</lombok.version>
         <reactor-core.version>3.1.2.RELEASE</reactor-core.version>
         <aspectjrt.version>1.8.13</aspectjrt.version>
+        <spring-integration-sftp.version>4.3.14.RELEASE</spring-integration-sftp.version>
     </properties>
     
     <dependencies>
@@ -160,6 +162,25 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectjrt.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-core</artifactId>
+            <version>${spring-statemachine-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-test</artifactId>
+            <version>${spring-statemachine-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-sftp</artifactId>
+            <version>${spring-integration-sftp.version}</version>
+        </dependency>
+
 
     </dependencies>
 
