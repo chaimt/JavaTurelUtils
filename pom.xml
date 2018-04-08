@@ -12,16 +12,16 @@
         <junit.version>4.12</junit.version>
         <javaslang.version>2.0.3</javaslang.version>
         <metrics-core.version>4.0.0</metrics-core.version>
-        <rxjava.version>1.3.4</rxjava.version>
+        <rxjava.version>1.3.8</rxjava.version>
         <joda-time.version>2.9.9</joda-time.version>
-        <spring-statemachine-core.version>1.2.8.RELEASE</spring-statemachine-core.version>
+        <spring-statemachine-core.version>2.0.1.RELEASE</spring-statemachine-core.version>
 
         <force-rest-api.version>0.0.40</force-rest-api.version>
         <force-wsc.version>42.0.0</force-wsc.version>
         <force-partner-api.version>42.0.0</force-partner-api.version>
 
-        <beam.version>2.2.0</beam.version>
-        <google-api-services-bigquery.version>v2-rev367-1.23.0</google-api-services-bigquery.version>
+        <beam.version>2.4.0</beam.version>
+        <google-api-services-bigquery.version>v2-rev377-1.23.0</google-api-services-bigquery.version>
 
 
 
@@ -30,16 +30,17 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
         <maven.compiler.testSource>1.8</maven.compiler.testSource>
+
         <versions.maven.plugin.version>2.3</versions.maven.plugin.version>
-        <json.version>20171018</json.version>
+        <json.version>20180130</json.version>
 
         <gson.version>2.8.2</gson.version>
         <log4j.version>1.2.17</log4j.version>
-        <jackson-annotations.version>2.9.3</jackson-annotations.version>
-        <lombok.version>1.16.18</lombok.version>
-        <reactor-core.version>3.1.2.RELEASE</reactor-core.version>
-        <aspectjrt.version>1.8.13</aspectjrt.version>
-        <spring-integration-sftp.version>4.3.14.RELEASE</spring-integration-sftp.version>
+        <jackson-annotations.version>2.9.5</jackson-annotations.version>
+        <lombok.version>1.16.20</lombok.version>
+        <reactor-core.version>3.1.6.RELEASE</reactor-core.version>
+        <aspectjrt.version>1.9.0</aspectjrt.version>
+        <spring-integration-sftp.version>5.0.4.RELEASE</spring-integration-sftp.version>
     </properties>
     
     <dependencies>
