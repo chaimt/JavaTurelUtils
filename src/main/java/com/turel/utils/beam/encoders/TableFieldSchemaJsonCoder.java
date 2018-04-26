@@ -43,21 +43,9 @@ public class TableFieldSchemaJsonCoder extends AtomicCoder<TableFieldSchema> {
   }
 
   @Override
-  public void encode(TableFieldSchema value, OutputStream outStream)
-      throws IOException {
-    encode(value, outStream, Context.NESTED);
-  }
-
-  @Override
-  public void encode(TableFieldSchema value, OutputStream outStream, Context context)
-      throws IOException {
+  public void encode(TableFieldSchema value, OutputStream outStream) throws IOException {
     String strValue = MAPPER.writeValueAsString(value);
-    StringUtf8Coder.of().encode(strValue, outStream, context);
-  }
-
-  @Override
-  public TableFieldSchema decode(InputStream inStream) throws IOException {
-    return decode(inStream, Context.NESTED);
+    StringUtf8Coder.of().encode(strValue, outStream);
   }
 
   private TableFieldSchema toTableFieldSchema(JsonNode jsonNode) throws IOException {
@@ -75,16 +63,15 @@ public class TableFieldSchemaJsonCoder extends AtomicCoder<TableFieldSchema> {
   }
 
   @Override
-  public TableFieldSchema decode(InputStream inStream, Context context)
-      throws IOException {
-    String strValue = StringUtf8Coder.of().decode(inStream, context);
+  public TableFieldSchema decode(InputStream inStream)
+          throws IOException {
+    String strValue = StringUtf8Coder.of().decode(inStream);
     return toTableFieldSchema(MAPPER.readTree(strValue));
-//    return MAPPER.readValue(strValue, TableFieldSchema.class);
   }
 
   @Override
   protected long getEncodedElementByteSize(TableFieldSchema value)
-      throws Exception {
+          throws Exception {
     String strValue = MAPPER.writeValueAsString(value);
     return StringUtf8Coder.of().getEncodedElementByteSize(strValue);
   }
@@ -94,7 +81,7 @@ public class TableFieldSchemaJsonCoder extends AtomicCoder<TableFieldSchema> {
   // FAIL_ON_EMPTY_BEANS is disabled in order to handle null values in
   // TableFieldSchema.
   private static final ObjectMapper MAPPER =
-      new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+          new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
   static {
     MAPPER.registerSubtypes(TableFieldSchema.class);
   }
@@ -103,6 +90,8 @@ public class TableFieldSchemaJsonCoder extends AtomicCoder<TableFieldSchema> {
   private static final TypeDescriptor<TableFieldSchema> TYPE_DESCRIPTOR = new TypeDescriptor<TableFieldSchema>() {};
 
   private TableFieldSchemaJsonCoder() { }
+
+
 
   /**
    * {@inheritDoc}
@@ -113,7 +102,7 @@ public class TableFieldSchemaJsonCoder extends AtomicCoder<TableFieldSchema> {
   @Override
   public void verifyDeterministic() throws NonDeterministicException {
     throw new NonDeterministicException(this,
-        "TableCell can hold arbitrary instances, which may be non-deterministic.");
+            "TableCell can hold arbitrary instances, which may be non-deterministic.");
   }
 
   @Override

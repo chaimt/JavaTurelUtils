@@ -22,7 +22,7 @@ public class TableFieldSchemaJsonCoderTest {
 
 
         InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-        final TableFieldSchema decode = tableFieldSchemaJsonCoder.decode(inputStream, Coder.Context.NESTED);
+        final TableFieldSchema decode = tableFieldSchemaJsonCoder.decode(inputStream);
         Assert.assertEquals(tableFieldSchema.getName(),decode.getName());
         Assert.assertEquals(tableFieldSchema.getType(),decode.getType());
     }
@@ -37,7 +37,7 @@ public class TableFieldSchemaJsonCoderTest {
         tableFieldSchemaJsonCoder.encode(tableFieldSchema,outputStream);
 
         InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-        final TableFieldSchema decode = tableFieldSchemaJsonCoder.decode(inputStream, Coder.Context.NESTED);
+        final TableFieldSchema decode = tableFieldSchemaJsonCoder.decode(inputStream);
         Assert.assertEquals(tableFieldSchema.getName(),decode.getName());
         Assert.assertEquals(tableFieldSchema.getType(),decode.getType());
         Assert.assertEquals(1,tableFieldSchema.getFields().size());
