@@ -33,7 +33,13 @@ abstract public class StageTask<S> extends CustomAction<TaskEvent> {
 				if (message != null)
 					context.getStateMachine().sendEvent(clone(message, TaskEvent.Next));
 			} catch (Exception e) {
-				log.error(e.getMessage());
+				if (e instanceof SMException) {
+					if (((SMException) e).isLogErrorMessage())
+						log.error(e.getMessage());
+					else
+						log.warn(e.getMessage());
+				} else
+					log.error(e.getMessage());
 				if (isFinally)
 					throw e;
 				if (!context.getStateMachine().sendEvent(clone(context.getMessage(), TaskEvent.Finally)))
