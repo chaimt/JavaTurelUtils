@@ -3,8 +3,6 @@ package com.turel.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.function.Supplier;
-
 /**
  * Wrapper for method call that needs retries
  * Created by Chaim on 24/05/2017.

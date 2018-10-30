@@ -3,8 +3,6 @@ package com.turel.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.function.Supplier;
-
 public class RetryTimeoutCommand<T> {
     private static final Logger LOG = LoggerFactory.getLogger(RetryTimeoutCommand.class);
     private long abortTimeout;

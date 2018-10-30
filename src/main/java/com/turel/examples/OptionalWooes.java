@@ -2,9 +2,7 @@ package com.turel.examples;
 
 import java.util.Optional;
 
-import static com.turel.examples.OptionalWooes.VerificationError.one;
-import static com.turel.examples.OptionalWooes.VerificationError.three;
-import static com.turel.examples.OptionalWooes.VerificationError.two;
+import static com.turel.examples.OptionalWooes.VerificationError.*;
 
 public class OptionalWooes {
 

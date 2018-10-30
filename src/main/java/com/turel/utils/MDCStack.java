@@ -2,7 +2,9 @@ package com.turel.utils;
 
 import org.apache.log4j.MDC;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by chaimturkel on 12/25/16.
