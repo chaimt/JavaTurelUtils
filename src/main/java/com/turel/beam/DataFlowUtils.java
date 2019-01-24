@@ -7,6 +7,7 @@ import com.turel.utils.RandomString;
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.control.Try;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.beam.runners.dataflow.DataflowClient;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Executors;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -273,5 +275,22 @@ public class DataFlowUtils {
             return pipeline;
         }
     }
+
+    @SneakyThrows
+    public static void runExternalDataFlow(String deployJar, String fullClassName, String params) {
+        ProcessBuilder builder = new ProcessBuilder();
+        builder.redirectErrorStream(true);
+        builder.command("sh", "-c", String.format("java -cp %s %s \\\n" +
+                params + " \\" + System.lineSeparator() + " --filesToStage=%s\n", deployJar, fullClassName, deployJar));
+        builder.directory(new File(System.getProperty("user.home")));
+        Process process = builder.start();
+        StreamGobbler inputGobbler = new StreamGobbler(process.getInputStream(), (l) -> log.info(LogUtils.prefixLog(l)));
+        StreamGobbler errorGobbler = new StreamGobbler(process.getErrorStream(), (l) -> log.error(LogUtils.prefixLog(l)));
+        Executors.newSingleThreadExecutor().submit(inputGobbler);
+        Executors.newSingleThreadExecutor().submit(errorGobbler);
+        int exitCode = process.waitFor();
+        assert exitCode == 0;
+    }
+
 
 }
