@@ -2,10 +2,12 @@ package com.turel.utils.reflection;
 
 import com.google.gson.*;
 import org.joda.time.DateTime;
+import org.joda.time.DurationFieldType;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -177,6 +179,40 @@ public class ReflectionUtils {
     }
 
 
+    public static boolean isPrimitive(Object obj){
+        if (obj.getClass().isPrimitive())
+            return true;
+        if (obj instanceof Boolean)
+            return true;
+        if (obj instanceof Byte)
+            return true;
+        if (obj instanceof Character)
+            return true;
+        if (obj instanceof Short)
+            return true;
+        if (obj instanceof Integer)
+            return true;
+        if (obj instanceof Long)
+            return true;
+        if (obj instanceof Double)
+            return true;
+        if (obj instanceof Float)
+            return true;
+        if (obj instanceof String)
+            return true;
+        if (obj instanceof Duration)
+            return true;
+        if (obj instanceof DateTime)
+            return true;
+        if (obj instanceof Date)
+            return true;
+        if (obj instanceof DurationFieldType)
+            return true;
+        if (obj instanceof Enum)
+            return true;
+        return false;
+    }
+
     public static <T> boolean compare(T first, T secound){
         Field[] allDeclaredFields = getAllDeclaredFields(first.getClass());
         return Arrays.stream(allDeclaredFields).map(field -> {
@@ -188,10 +224,12 @@ public class ReflectionUtils {
                     return true;
                 if ((a != null && b==null) || (a == null && b!=null))
                     return false;
+                if (!isPrimitive(a) && getAllDeclaredFields(a.getClass()).length>0){
+                    return compare(a,b);
+                }
                 return a.equals(b);
             } catch (IllegalAccessException e) {
                 return false;
             }
         }).filter(aBoolean -> aBoolean == false).count()==0;
-    }
-}
+    }}
