@@ -43,7 +43,7 @@
         <reactor-core.version>3.2.5.RELEASE</reactor-core.version>
         <aspectjrt.version>1.9.2</aspectjrt.version>
         <spring-integration-sftp.version>5.1.2.RELEASE</spring-integration-sftp.version>
-        <spring-boot-starter-web.version>2.1.2.RELEASE</spring-boot-starter-web.version>
+        <spring-boot-starter-web.version>2.5.12</spring-boot-starter-web.version>
 
         <google-cloud-storage.version>1.61.0</google-cloud-storage.version>
         <google-cloud-bigquery.version>1.61.0</google-cloud-bigquery.version>
